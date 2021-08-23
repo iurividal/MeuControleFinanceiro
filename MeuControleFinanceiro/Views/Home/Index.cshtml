@@ -1,0 +1,139 @@
+@using MeuControleFinanceiro.Models
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .row {
+        margin-top: 1rem;
+    }
+
+
+    .scroll {
+        max-height: 278px;
+        overflow-y: auto;
+    }
+</style>
+
+<div>
+
+
+    <div class="row">
+
+        <div class="col-sm d-inline">
+
+            <div class="card">
+                <div class="card-body">
+
+
+
+                    <h4 class="card-title">Visão Geral</h4>
+
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item text-dark"> <i class="text-primary m-1 fas fa-piggy-bank"></i> Contas: <span class="badge badge-primary badge-pill">R$ 7.000,00</span>  </a>
+                        <a href="#" class="list-group-item"><i class="text-success m-1 fas fa-plus-circle"></i>  Receitas: <span class="badge badge-primary badge-pill">R$ 4.000,00</span></a>
+                        <a href="#" class="list-group-item"><i class="fas fa-minus text-danger m-1"></i>Despesas: <span class="badge badge-danger badge-pill">R$ 1.035,00 </span> </a>
+                        <a href="#" class="list-group-item"><i class="far fa-credit-card text-dark m-1"></i> Cartão de Crédito:<span class="badge badge-danger badge-pill">R$ 2.000,00</span> </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm d-inline ">
+
+            <div class="card">
+                <div class="card-body scroll">
+
+                    <h4 class="card-title">Últimas despesas</h4>
+
+
+                    @Html.Partial("_UltimasDespesas")
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+   
+    <div class="row">
+        <div class="col-sm d-inline">
+
+            <div class="card">
+                <div class="card-body">
+
+                    <h4 class="card-title">Despesa por Categoria</h4>
+
+
+
+
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@(Html.DevExtreme().DataGrid<Order>()
+        .ShowBorders(true)
+        .DataSource(d => d.WebApi().Controller("Orders").Key("OrderID"))
+        .Columns(columns => {
+            columns.AddFor(m => m.OrderID);
+            columns.AddFor(m => m.OrderDate);
+            columns.AddFor(m => m.CustomerName);
+            columns.AddFor(m => m.ShipCountry);
+            columns.AddFor(m => m.ShipCity);
+        })
+        .Paging(p => p.PageSize(10))
+        .FilterRow(f => f.Visible(true))
+        .HeaderFilter(f => f.Visible(true))
+        .GroupPanel(p => p.Visible(true))
+        .Grouping(g => g.AutoExpandAll(false))
+        .RemoteOperations(true)
+        .Summary(s => s
+            .TotalItems(totalItems => {
+                totalItems.AddFor(m => m.ShipCity).SummaryType(SummaryType.Count);
+            })
+            .GroupItems(groupItems => {
+                groupItems.Add().SummaryType(SummaryType.Count);
+            })
+        )
+    )*@
