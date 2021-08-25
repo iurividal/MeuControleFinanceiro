@@ -305,6 +305,8 @@
     <Content Include="Views\Categoria\Index.cshtml" />
     <Content Include="Views\Receita\MinhaReceita.cshtml" />
     <Content Include="Views\Receita\AddReceita.cshtml" />
+    <Content Include="Views\Categoria\AddOrUpdate.cshtml" />
+    <Content Include="Views\Conta\AddConta.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -395,6 +397,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CategoriaModel.cs" />
+    <Compile Include="Models\ContaDetalhe.cs" />
     <Compile Include="Models\ContaModel.cs" />
     <Compile Include="Models\DespesaModel.cs" />
     <Compile Include="Models\Order.cs" />

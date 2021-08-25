@@ -1,0 +1,29 @@
+﻿@model MeuControleFinanceiro.Models.CategoriaModel
+@{
+    ViewBag.Title = "AddOrUpdate";
+}
+
+
+
+<div class="row">
+    <h2> <a href="@Url.Action("Index")"><i class="fas fa-arrow-alt-circle-left"></i> </a>Nova Categoria</h2>
+</div>
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-sm form-group">
+            Informe a categoria:
+            @Html.DevExtreme().TextBoxFor(m => m.Categoria).MaxLength(50)
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm form-group">
+            @Html.DevExtreme().Button().Text("Cadastrar").Type(ButtonType.Success)
+        </div>
+    </div>
+}
+
+

@@ -18,7 +18,9 @@ namespace MeuControleFinanceiro.Models
 
         public string DataReceitaStr => DataReceita.ToString("dd/ddd");
 
-        public int IdConta { get; set; }
+        public ContaModel Conta { get; set; }
+
+        public CategoriaModel Categoria { get; set; }
 
 
     }

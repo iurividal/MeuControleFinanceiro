@@ -3,29 +3,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MongoDB.Driver.Linq;
+using MongoDB.Driver;
 
 namespace MeuControleFinanceiro.Repository
 {
     public class ContaRepositoty
     {
+        DB.DBContext db = new DB.DBContext();
 
-        public static IEnumerable<ContaModel> GetContas()
+        public IEnumerable<ContaModel> GetContas()
         {
-            IEnumerable<ContaModel> ct = new List<ContaModel>
-            {
-                new ContaModel{IdConta=1, Nome = "Conta Corrente", ValorInicial = 1000, SaldoAtual = GetSaldoAtualConta(1)},
-                new ContaModel{IdConta=2, Nome = "Conta Poupança", ValorInicial = 1000, SaldoAtual = GetSaldoAtualConta(2)},
+            var response = db.GetDataBaseMongo().GetCollection<ContaModel>("Conta");
 
-            };
+            return response.AsQueryable<ContaModel>();
 
-            return ct;
 
         }
+
+        //public IEnumerable<ContaDetalhe> GetContasDetalhe()
+        //{
+        //    var conta = db.GetDataBaseMongo().GetCollection<ContaModel>("Conta").AsQueryable<ContaModel>();
+        //    var despensa = db.GetDataBaseMongo().GetCollection<DespesaModel>("Despesa").AsQueryable<DespesaModel>();
+        //    var Receita = db.GetDataBaseMongo().GetCollection<ReceitaModel>("Receita").AsQueryable<ReceitaModel>();
+
+        //    return 
+        //}
 
 
         public static double GetSaldoAtualConta(int id)
         {
             return new Random().NextDouble();
+        }
+
+        public void AddConta(ContaModel conta)
+        {
+
+            var response = db.GetDataBaseMongo().GetCollection<ContaModel>("Conta");
+
+            conta._id = response.AsQueryable<ContaModel>().Count() + 1;
+
+            response.InsertOne(conta);
+
+
         }
 
     }

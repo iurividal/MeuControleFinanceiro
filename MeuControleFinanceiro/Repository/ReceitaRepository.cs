@@ -14,10 +14,10 @@ namespace MeuControleFinanceiro.Repository
             {
 
 
-                IEnumerable<ReceitaModel> receitas = new List<ReceitaModel>
+           IEnumerable<ReceitaModel> receitas = new List<ReceitaModel>
             {
-                new ReceitaModel{ Descricao = "Salário", Valor = 2000.00, DataReceita= new DateTime(2021,08,31), IdConta= 1},
-                new ReceitaModel{ Descricao = "Adiantamento", Valor = 1800.00, DataReceita= new DateTime(2021,08,20), IdConta = 1}
+                new ReceitaModel{ Descricao = "Salário", Valor = 2000.00, DataReceita= new DateTime(2021,08,31), Conta = new ContaModel{Nome = "C6 Bank"} },
+                new ReceitaModel{ Descricao = "Adiantamento", Valor = 1800.00, DataReceita= new DateTime(2021,08,20),Conta = new ContaModel{Nome = "C6 Bank"} }
             };
 
 

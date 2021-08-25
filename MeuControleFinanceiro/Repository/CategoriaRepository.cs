@@ -17,7 +17,8 @@ namespace MeuControleFinanceiro.Repository
             {
 
                 var catagoriaList = db.GetDataBaseMongo()
-                    .GetCollection<CategoriaModel>("Categoria") ;
+                    .GetCollection<CategoriaModel>("Categoria");
+
 
                 var query = from e in catagoriaList.AsQueryable<CategoriaModel>()
                             select e;
@@ -36,11 +37,19 @@ namespace MeuControleFinanceiro.Repository
             }
         }
 
-        public static void AddCategoria(CategoriaModel categoria)
+        public void AddCategoria(CategoriaModel categoria)
         {
-            var lista = db.GetDataBaseMongo().GetCollection<CategoriaModel>("Categoria");
-             lista.InsertOne(categoria);
-           
+            try
+            {
+                var lista = db.GetDataBaseMongo().GetCollection<CategoriaModel>("Categoria");
+                lista.InsertOne(categoria);
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
+
 
         }
 

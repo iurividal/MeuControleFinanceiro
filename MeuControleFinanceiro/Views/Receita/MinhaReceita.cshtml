@@ -46,7 +46,7 @@
 
     <div class="row">
         <div class="col-sm-7">
-            <span><%-Conta%></span>
+            <span><%-Conta.Nome%></span>
         </div>
 
         <div class="col-sm ">
@@ -78,17 +78,15 @@
     })
     .Grouped(false)
     )
-   
-    
     @(Html.DevExtreme().SpeedDialAction()
     .ID("action-edit")
     .Icon("add")
     .Visible(true)
     .Label("")
-    .Index(3)
-    .OnClick("ir")
+    .Index(1)
+    .OnClick("AddReceita")
    )
- 
+
 </div>
 
 
@@ -100,9 +98,9 @@
 
 
 
-    function ir() {
+    function AddReceita() {
 
-        window.location.href = "./AddReceita";
+        window.location.href = "@Url.Action("AddReceita")";
     };
  
 

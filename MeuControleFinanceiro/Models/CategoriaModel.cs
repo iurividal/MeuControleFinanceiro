@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,10 +8,8 @@ namespace MeuControleFinanceiro.Models
 {
     public class CategoriaModel
     {
-
         public object _id { get; set; }
-        public string Categoria { get; set; }
-        public string Subcategoria { get; set; }
+        public string Categoria { get; set; }       
         public int IdCategoria { get; set; }
 
         public CategoriaModel()
@@ -22,7 +21,7 @@ namespace MeuControleFinanceiro.Models
         {
             this.IdCategoria = idcategoria;
             this.Categoria = categoria;
-            
+
         }
 
     }
@@ -40,6 +39,6 @@ namespace MeuControleFinanceiro.Models
             this.Descricao = descricao;
         }
 
-       
+
     }
 }

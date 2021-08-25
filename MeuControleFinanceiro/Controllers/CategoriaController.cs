@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeuControleFinanceiro.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,17 @@ namespace MeuControleFinanceiro.Controllers
     {
         // GET: Categoria
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult AddOrUpdate()
+        {
+            return View(new CategoriaModel());
+        }
+
+        [HttpPost]
+        public ActionResult AddOrUpdate(CategoriaModel model)
         {
             return View();
         }

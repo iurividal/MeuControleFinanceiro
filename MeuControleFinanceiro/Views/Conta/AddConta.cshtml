@@ -1,0 +1,66 @@
+﻿@model MeuControleFinanceiro.Models.ContaModel
+@{
+    ViewBag.Title = "AddConta";
+}
+
+<h2>Nova Conta</h2>
+
+@using (Html.BeginForm())
+{
+
+    <div class="row">
+        <div class="col-sm form-group">
+
+            @Html.LabelFor(m => m.Nome)
+            @Html.DevExtreme().TextBoxFor(m => m.Nome)
+
+        </div>
+
+        <div class="col-sm form-group">
+
+            @Html.LabelFor(m => m.ValorInicial)
+            @Html.DevExtreme().TextBoxFor(m => m.ValorInicial)
+
+        </div>
+        <div class="col-sm form-group">
+
+            @Html.LabelFor(m => m.Padrao)
+            @(Html.DevExtreme().LookupFor(m=>m.Padrao)
+                        .SearchEnabled(false)
+                        .DataSource(new[] {"Sim","Não",})
+                        .Placeholder("É Conta Padrão")
+                        )
+
+
+        </div>
+
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm form-group">
+
+            <button class="btn btn-secondary" type="submit">Salvar</button>
+
+           
+
+        </div>
+    </div>
+
+}
+
+
+<script>
+
+    $(document).ready(function () {
+
+        var msg = '@ViewBag.Mensagem';
+
+        if (msg !== '') {
+            alert(msg);
+        }
+
+    });
+
+</script>

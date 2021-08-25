@@ -30,7 +30,7 @@
 
 
             Valor:
-            @(Html.DevExtreme().TextBox())
+            @(Html.DevExtreme().TextBoxFor(m=>m.Valor))
 
 
         </div>
@@ -38,7 +38,7 @@
 
         <div class="col-sm form-group">
             Data Recebimento
-            @(Html.DevExtreme().DateBox().Placeholder("Data Recebimento")
+            @(Html.DevExtreme().DateBoxFor(m=>m.DataReceita).Placeholder("Data Recebimento")
                         )
         </div>
     </div>
@@ -46,21 +46,11 @@
     <div class="row">
         <div class="col-sm form-group">
             Categoria:
-            @(Html.DevExtreme().Lookup().DataSource(ds=>ds.WebApi().Controller("CategoriaApi").LoadAction("Get"))
+            @(Html.DevExtreme().LookupFor(m=>m.Categoria._id).DataSource(ds=>ds.WebApi().Controller("CategoriaApi").LoadAction("Get"))
                         .SearchEnabled(false)
                         .Placeholder("Categoria")
-                        .ValueExpr("Categoria")
+                        .ValueExpr("_id")
                         .DisplayExpr("Categoria")
-                        )
-        </div>
-
-        <div class="col-sm form-group">
-            SubCategoria:
-            @(Html.DevExtreme().Lookup().DataSource(ds=>ds.WebApi().Controller("SubCategoria").LoadAction("Get"))
-                        .SearchEnabled(false)
-                        .Placeholder("SubCategoria")
-                        .ValueExpr("Descricao")
-                        .DisplayExpr("Descricao")
                         )
         </div>
 
@@ -75,7 +65,7 @@
         </div>
     </div>
 
-   
+
 
 
 }

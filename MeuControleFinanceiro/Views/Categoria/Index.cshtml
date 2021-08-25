@@ -7,7 +7,8 @@
 
 
 @(Html.DevExtreme().DataGrid<MeuControleFinanceiro.Models.CategoriaModel>()
-    .DataSource(ds=> ds.WebApi().Key("IdCategoria")
+        .ID("grid")
+    .DataSource(ds=> ds.WebApi().Key("_id")
     .Controller("CategoriaApi")
     .LoadAction("Get")
     .UpdateAction(true)
@@ -15,15 +16,48 @@
     .LoadMode(DataSourceLoadMode.Processed))
     .Editing(e =>
     {
-        e.Mode(GridEditMode.Popup).AllowUpdating(true).AllowDeleting(true);
+        e.Mode(GridEditMode.Popup);
+        e.AllowAdding(true);
+        e.AllowDeleting(true);
+        e.AllowUpdating(true);
+
+        e.Popup(p =>
+        {
+            p.Title("Nova Categoria");
+            p.ShowTitle(true);
+        });
+
     })
     .Columns(c =>
     {
 
-        c.AddFor(m => m._id);
-        c.AddFor(m => m.IdCategoria);
+
         c.AddFor(m => m.Categoria);
 
 
     })
+
     )
+@(Html.DevExtreme().SpeedDialAction()
+    .ID("action-add")
+    .Icon("add")
+    .Label("Nova Categoria")
+    .Index(1)
+    .OnClick("addRow")
+)
+
+
+
+<script>
+
+    var getGridInstance = function () {
+        return $("#grid").dxDataGrid("instance");
+    }
+
+    var addRow = function () {
+        getGridInstance().addRow();
+        getGridInstance().deselectAll();
+
+       // window.location.href = '@Url.Action("AddOrUpdate")';
+    }
+</script>

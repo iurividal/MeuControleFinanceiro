@@ -11,10 +11,12 @@ namespace MeuControleFinanceiro.Controllers.Api
 {
     public class ContaApiController : ApiController
     {
+        Repository.ContaRepositoty repositoty = new Repository.ContaRepositoty();
+
         [HttpGet]
         public HttpResponseMessage Get(DataSourceLoadOptions loadOptions)
         {
-            return Request.CreateResponse(DataSourceLoader.Load(Repository.ContaRepositoty.GetContas(), loadOptions));
+            return Request.CreateResponse(DataSourceLoader.Load(repositoty.GetContas(), loadOptions));
         }
     }
 }
