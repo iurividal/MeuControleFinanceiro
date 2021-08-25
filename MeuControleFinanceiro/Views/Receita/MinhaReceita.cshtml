@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Receita";
+}
+
+<h2>Minhas Receita</h2>
+
+<style>
+
+    .row {
+        margin-left: 2px
+    }
+</style>
+
+<div class="row justify-content-center">
+
+    @*<div class="widget-container">
+            @(Html.DevExtreme().Calendar()
+                .ID("calendar-container")
+                .Value(DateTime.Now)
+                .Disabled(false)
+                .MaxZoomLevel(CalendarZoomLevel.Month)
+                .MinZoomLevel(CalendarZoomLevel.Month)
+                .ZoomLevel(CalendarZoomLevel.Month)
+                .Height(1)
+               .OnOptionChanged("OnValueChanged")
+            )
+        </div>*@
+
+
+    <button class="btn btn-primary">Setembro</button>
+
+    @(Html.DevExtreme().List()
+    .DataSource(ds=> ds.WebApi()
+    .Controller("ReceitaApi")
+    .LoadAction("Get")
+
+    )
+    .SelectionMode(ListSelectionMode.None)
+    .ShowScrollbar(ShowScrollbarMode.Always)
+    .ShowSelectionControls(false)
+    .ItemTemplate(@<text>
+
+    <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+
+
+    <div class="row">
+        <div class="col-sm-7">
+            <span><%-Conta%></span>
+        </div>
+
+        <div class="col-sm ">
+            <span><%-DataReceitaStr%></span>
+        </div>
+
+    </div>
+
+
+   <div class="row">
+       <div class="col-sm-7 ">
+            <span><%-Descricao %></span>
+       </div>
+
+         <div class="col-sm-4 ">
+         <b><%- formatCurrency(Valor) %></b>
+        </div>
+
+          <div class="col-sm-1 text-lg-right">
+               <a href="#"> <i class="text-danger fas fa-trash"></i></a>
+            </div>
+    </div>
+
+ </div>
+                </text>)
+    .DataSourceOptions(d =>
+    {
+        d.Sort("MesReceita",false);
+    })
+    .Grouped(false)
+    )
+   
+    
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-edit")
+    .Icon("add")
+    .Visible(true)
+    .Label("")
+    .Index(3)
+    .OnClick("ir")
+   )
+ 
+</div>
+
+
+<script>
+
+    function formateDateLocal(data) {
+        return data.previousValue.toLocaleDateString();
+    };
+
+
+
+    function ir() {
+
+        window.location.href = "./AddReceita";
+    };
+ 
+
+    //function showInfo() {
+    //    const popup = $("#popup").dxPopup("instance");
+
+    //    popup.option({
+    //        contentTemplate: $("#popup-template"),
+    //    });
+    //    popup.show();
+    //}
+
+    var formatCurrency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format;
+
+
+</script>

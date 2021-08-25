@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Categorias</h2>
+
+
+@(Html.DevExtreme().DataGrid<MeuControleFinanceiro.Models.CategoriaModel>()
+    .DataSource(ds=> ds.WebApi().Key("IdCategoria")
+    .Controller("CategoriaApi")
+    .LoadAction("Get")
+    .UpdateAction(true)
+    .InsertAction("Post")
+    .LoadMode(DataSourceLoadMode.Processed))
+    .Editing(e =>
+    {
+        e.Mode(GridEditMode.Popup).AllowUpdating(true).AllowDeleting(true);
+    })
+    .Columns(c =>
+    {
+
+        c.AddFor(m => m._id);
+        c.AddFor(m => m.IdCategoria);
+        c.AddFor(m => m.Categoria);
+
+
+    })
+    )

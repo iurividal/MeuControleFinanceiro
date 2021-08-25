@@ -31,7 +31,7 @@
                     <h4 class="card-title">Visão Geral</h4>
 
                     <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item text-dark"> <i class="text-primary m-1 fas fa-piggy-bank"></i> Contas: <span class="badge badge-primary badge-pill">R$ 7.000,00</span>  </a>
+                        <a href="./Conta" class="list-group-item text-dark"> <i class="text-primary m-1 fas fa-piggy-bank"></i> Contas: <span class="badge badge-primary badge-pill">R$ 7.000,00</span>  </a>
                         <a href="#" class="list-group-item"><i class="text-success m-1 fas fa-plus-circle"></i>  Receitas: <span class="badge badge-primary badge-pill">R$ 4.000,00</span></a>
                         <a href="#" class="list-group-item"><i class="fas fa-minus text-danger m-1"></i>Despesas: <span class="badge badge-danger badge-pill">R$ 1.035,00 </span> </a>
                         <a href="#" class="list-group-item"><i class="far fa-credit-card text-dark m-1"></i> Cartão de Crédito:<span class="badge badge-danger badge-pill">R$ 2.000,00</span> </a>
@@ -65,11 +65,6 @@
 
     </div>
 
-
-
-
-
-   
     <div class="row">
         <div class="col-sm d-inline">
 
@@ -78,17 +73,47 @@
 
                     <h4 class="card-title">Despesa por Categoria</h4>
 
-
-
-
                 </div>
             </div>
-
-
-
         </div>
 
     </div>
+
+
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-conta")
+    .Icon("add")
+    .Visible(true)
+    .Label("Nova Conta")
+    .Index(4)
+    .OnClick("NovaConta")
+   )
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-despesa")
+    .Icon("minus")
+    .Visible(true)
+    .Label("Nova Despesa")
+    .Index(3)
+    .OnClick("NovaDespesa")
+   )
+
+  
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-receita")
+    .Icon("far fa-money-bill-alt")
+    .Visible(true)
+    .Label("Nova Receita")
+    .Index(2)
+     .OnClick("NovaReceita")
+   )
+    @(Html.DevExtreme().SpeedDialAction()
+    .ID("action-cred-card")
+    .Icon("far fa-credit-card")
+    .Visible(true)
+    .Label("Despesa Cartão de Crédito")
+    .Index(1)   
+    .OnClick("CartaoCredito")
+   )
 
 
 </div>
@@ -99,7 +124,36 @@
 
 
 
+<script>
 
+    function CartaoCredito(e) {
+
+
+
+
+        window.location.href = './C/Add';
+    }
+
+    function NovaConta(e) {
+
+
+
+        window.location.href = './Conta';
+    }
+
+    function NovaDespesa(e) {
+
+        window.location.href = './Despesa';
+    }
+
+    function NovaReceita(e) {
+
+        var url = '@Url.Action("AddReceita","Receita")';
+
+        window.location.href = url;
+    }
+
+</script>
 
 
 
