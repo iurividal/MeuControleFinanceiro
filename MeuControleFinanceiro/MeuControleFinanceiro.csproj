@@ -411,6 +411,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelpersExtensions.cs" />
     <Compile Include="Models\CategoriaModel.cs" />
     <Compile Include="Models\ContaDetalhe.cs" />
     <Compile Include="Models\ContaModel.cs" />

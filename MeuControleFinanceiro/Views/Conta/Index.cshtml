@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<MeuControleFinanceiro.Models.ContaDetalhe>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -33,12 +34,18 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm">
-                            <span>Saldo inicial: R$ @item.ValorInicial</span>
+                            <span>Saldo inicial: R$  @Convert.ToDecimal(item.ValorInicial).ToString("c2") </span>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <span>Total Receita: @item.TotalReceita</span>
+                            <span>Total Receita: @Convert.ToDecimal(item.TotalReceita).ToString("c2")</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+
+                            <span>Total Despesa:@Convert.ToDecimal(item.TotalDespesa).ToString("c2")</span>
                         </div>
                     </div>
                 </div>
@@ -52,7 +59,7 @@
 
 <div class="row">
     <div class="col-sm  text-lg-right">
-        <h5 style="color:green">Saldo Total: R$ 7.000,00</h5>
+        <h5 style="color:green">Saldo Total:  @ViewBag.SaldoTotal</h5>
     </div>
 
 </div>

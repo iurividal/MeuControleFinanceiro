@@ -15,7 +15,7 @@ namespace MeuControleFinanceiro.Repository
     public class ContaRepository : IContaRepository
     {
         IDBContext db;
-       
+
         public ContaRepository(IDBContext db, IReceitaRepository repositoryReceita)
         {
             this.db = db;
@@ -46,31 +46,48 @@ namespace MeuControleFinanceiro.Repository
 
         public IEnumerable<ContaDetalhe> GetContaDetalhe()
         {
-            var contas = db.GetDataBaseMongo().GetCollection<ContaModel>("Conta");
+            var contas = db.GetCollection<ContaModel>("Conta");
 
-            var receitas = db.GetDataBaseMongo().GetCollection<ReceitaModel>("Receita");
+            var receitas = db.GetCollection<ReceitaModel>("Receita");
 
+            var despesas = db.GetCollection<DespesaModel>("Despesa");
 
             //var result = contas.Aggregate().Lookup("Receita", "Valor", "_idConta", @as: "receita_docs")
             //    .Unwind("receita_docs")
             //    .As<ContaDetalhe>()
             //    .ToEnumerable();
 
-            var docs = contas.Aggregate()
-                  .Lookup("Receita", "_idConta", "_id", "Receitas")
-                  .As<BsonDocument>()
-                  .ToList();
+            //var docs = contas.Aggregate()
+            //      .Lookup("Receita", "_idConta", "_id", "Receitas")
+            //      .As<BsonDocument>()
+            //      .ToList();
 
 
             var result = (from c in contas.AsQueryable()
-                          join r in receitas.AsQueryable() on c._id equals r._idConta
-                          into joinedInventory
                           select new ContaDetalhe
                           {
                               Nome = c.Nome,
-                              Receitas = joinedInventory
+                              _id = c._id,
+                              ValorInicial = c.ValorInicial
+
 
                           }).ToList();
+
+
+
+            foreach (var item in result)
+            {
+                item.Receitas = receitas.Find(x => x._idConta == item._id).ToList();
+
+                item.Despesas = despesas.Find(x => x._idConta == item._id).ToList();
+
+                item.TotalReceita = item.Receitas.Sum(x => x.Valor);
+
+                item.TotalDespesa = item.ValorInicial + item.Despesas.Sum(x => x.Valor);
+
+                item.SaldoAtual = item.ValorInicial + (item.TotalReceita - item.TotalDespesa);                
+            }
+
 
 
             return result;

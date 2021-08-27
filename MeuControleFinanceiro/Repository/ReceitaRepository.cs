@@ -22,11 +22,14 @@ namespace MeuControleFinanceiro.Repository
 
         public IEnumerable<ReceitaModel> GetReceitas()
         {
-            {
 
-                var receita = db.GetCollection<ReceitaModel>("Receita").AsQueryable();
-                return receita;
-            }
+            var receitas = db.GetCollection<ReceitaModel>("Receita").AsQueryable();
+
+            var receita = (from r in receitas select r).ToList();
+            
+
+            return receita;
+
         }
 
         public void AddReceita(ReceitaModel receitaModel)

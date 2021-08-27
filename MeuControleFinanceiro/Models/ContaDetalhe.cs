@@ -13,6 +13,7 @@ namespace MeuControleFinanceiro.Models
         public double? TotalDespesa { get; set; }
 
         public IEnumerable<ReceitaModel> Receitas { get; set; }
+        public IEnumerable<DespesaModel> Despesas { get; set; }
 
         public double? TotalReceita { get; set; }
 

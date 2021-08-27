@@ -23,7 +23,7 @@ namespace MeuControleFinanceiro.Models
 
         public int MesLancamento => DataLacamento.Month;
 
-        public string _idConta { get; set; }
+        public object _idConta { get; set; }
 
         public string _idCategoria { get; set; }
 

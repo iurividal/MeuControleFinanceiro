@@ -30,6 +30,10 @@
         }
     </style>
 
+    <script>
+        var formatCurrency = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 }).format;
+    </script>
+
 </head>
 
 <body style="padding-top: 5rem;">
@@ -66,5 +70,7 @@
         @RenderBody()
     </main>
 </body>
+
+
 
 </html>
