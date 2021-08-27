@@ -1,5 +1,6 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using MeuControleFinanceiro.Repository.Servicos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,18 @@ namespace MeuControleFinanceiro.Controllers.Api
 {
     public class ContaApiController : ApiController
     {
-        Repository.ContaRepositoty repositoty = new Repository.ContaRepositoty();
+        IContaRepository repository;
+
+        public ContaApiController(IContaRepository repository)
+        {
+            this.repository = repository;
+        }
+
 
         [HttpGet]
         public HttpResponseMessage Get(DataSourceLoadOptions loadOptions)
         {
-            return Request.CreateResponse(DataSourceLoader.Load(repositoty.GetContas(), loadOptions));
+            return Request.CreateResponse(DataSourceLoader.Load(repository.GetContas(), loadOptions));
         }
     }
 }

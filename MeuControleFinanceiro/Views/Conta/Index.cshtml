@@ -1,4 +1,4 @@
-﻿@model List<MeuControleFinanceiro.Models.ContaModel>
+﻿@model IEnumerable<MeuControleFinanceiro.Models.ContaDetalhe>
 @{
     ViewBag.Title = "Index";
 }
@@ -18,11 +18,9 @@
 
 </div>
 
-
-@foreach (var item in Model)
-{
-
-    <div class="row">
+<div class="row">
+    @foreach (var item in Model)
+    {
 
         <div class="col-sm">
 
@@ -40,16 +38,17 @@
                     </div>
                     <div class="row">
                         <div class="col-sm">
-                            <span>Saldo atual: R$ 2.000,00</span>
+                            <span>Total Receita: @item.TotalReceita</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-        </div>
-    </div>
 
-}
+        </div>
+
+    }
+</div>
 
 <div class="row">
     <div class="col-sm  text-lg-right">

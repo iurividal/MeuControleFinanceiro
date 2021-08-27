@@ -5,7 +5,8 @@ using System.Web;
 
 namespace MeuControleFinanceiro.Models
 {
-    public class DespesaModel
+    public class DespesaModel : LancamentoModel
     {
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using MeuControleFinanceiro.Models;
+using MeuControleFinanceiro.Repository.Servicos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,18 @@ namespace MeuControleFinanceiro.Controllers
     public class ContaController : Controller
     {
 
-        Repository.ContaRepositoty contaRepositoty = new Repository.ContaRepositoty();
+        IContaRepository repository;
+
+        public ContaController(IContaRepository repository)
+        {
+            this.repository = repository;
+        }
 
         // GET: Conta
         public ActionResult Index()
         {
-            var contas = contaRepositoty.GetContas().ToList();
+            var contas = repository.GetContaDetalhe().ToList();
+
 
             return View(contas);
         }
@@ -29,7 +36,7 @@ namespace MeuControleFinanceiro.Controllers
         public ActionResult AddConta(ContaModel model)
         {
 
-            contaRepositoty.AddConta(model);
+            repository.AddConta(model);
 
             ViewBag.Mensagem = "Conta cadastrada com sucesso";
 

@@ -1,6 +1,9 @@
 ﻿using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
+using MeuControleFinanceiro.DB;
 using MeuControleFinanceiro.Models;
+using MeuControleFinanceiro.Repository;
+using SimpleInjector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +16,18 @@ namespace MeuControleFinanceiro.Controllers.Api
 {
     public class CategoriaApiController : ApiController
     {
-        Repository.CategoriaRepository repository = new Repository.CategoriaRepository();
+        //  private readonly IDBContext db;
+        private readonly ICategoriaRepository repository;
 
+        public CategoriaApiController(ICategoriaRepository repository)
+        {
+            this.repository = repository;
+        }
 
         [HttpGet]
         public HttpResponseMessage Get(DataSourceLoadOptions loadOptions)
         {
-            return Request.CreateResponse(DataSourceLoader.Load(Repository.CategoriaRepository.GetCategoria, loadOptions));
+            return Request.CreateResponse(DataSourceLoader.Load(repository.GetCategoria(), loadOptions));
         }
 
         [HttpPost]
@@ -30,7 +38,7 @@ namespace MeuControleFinanceiro.Controllers.Api
                 var values = form.Get("values");
 
                 var cat = Newtonsoft.Json.JsonConvert.DeserializeObject<CategoriaModel>(values);
-                var id = Repository.CategoriaRepository.GetCategoria.Count() + 1;
+                var id = repository.GetCategoria().Count() + 1;
                 cat._id = id;
                 repository.AddCategoria(cat);
             }

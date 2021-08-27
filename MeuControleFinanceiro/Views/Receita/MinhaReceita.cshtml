@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-sm ">
-            <span><%-DataReceitaStr%></span>
+            <span><%-DataLacamentoStr%></span>
         </div>
 
     </div>
@@ -74,7 +74,7 @@
                 </text>)
     .DataSourceOptions(d =>
     {
-        d.Sort("MesReceita",false);
+        d.Sort("MesLancamento",false);
     })
     .Grouped(false)
     )

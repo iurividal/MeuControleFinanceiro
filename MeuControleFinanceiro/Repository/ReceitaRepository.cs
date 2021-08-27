@@ -3,26 +3,40 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using MongoDB.Driver;
+using MeuControleFinanceiro.DB;
+using MeuControleFinanceiro.Repository.Servicos;
 
 namespace MeuControleFinanceiro.Repository
 {
-    public class ReceitaRepository
+    public class ReceitaRepository : IReceitaRepository
     {
-        public static IEnumerable<ReceitaModel> GetReceitas
+        //DB.DBContext db = new DB.DBContext();
+
+        private readonly IDBContext db;
+
+        public ReceitaRepository(IDBContext db)
         {
-            get
+            this.db = db;
+        }
+
+        public IEnumerable<ReceitaModel> GetReceitas()
+        {
             {
 
-
-           IEnumerable<ReceitaModel> receitas = new List<ReceitaModel>
-            {
-                new ReceitaModel{ Descricao = "Salário", Valor = 2000.00, DataReceita= new DateTime(2021,08,31), Conta = new ContaModel{Nome = "C6 Bank"} },
-                new ReceitaModel{ Descricao = "Adiantamento", Valor = 1800.00, DataReceita= new DateTime(2021,08,20),Conta = new ContaModel{Nome = "C6 Bank"} }
-            };
-
-
-                return receitas;
+                var receita = db.GetCollection<ReceitaModel>("Receita").AsQueryable();
+                return receita;
             }
+        }
+
+        public void AddReceita(ReceitaModel receitaModel)
+        {
+            var receita = db.GetCollection<ReceitaModel>("Receita");
+
+            receitaModel._id = receita.AsQueryable<ReceitaModel>().Count() + 1;
+
+            receita.InsertOne(receitaModel);
+
         }
     }
 }

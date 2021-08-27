@@ -10,5 +10,11 @@ namespace MeuControleFinanceiro.Models
 
         public double? SaldoAtual;
 
+        public double? TotalDespesa { get; set; }
+
+        public IEnumerable<ReceitaModel> Receitas { get; set; }
+
+        public double? TotalReceita { get; set; }
+
     }
 }

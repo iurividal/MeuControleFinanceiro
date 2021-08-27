@@ -38,7 +38,7 @@
 
         <div class="col-sm form-group">
             Data Recebimento
-            @(Html.DevExtreme().DateBoxFor(m=>m.DataReceita).Placeholder("Data Recebimento")
+            @(Html.DevExtreme().DateBoxFor(m=>m.DataLacamento).Placeholder("Data Recebimento")
                         )
         </div>
     </div>
@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col-sm form-group">
             Categoria:
-            @(Html.DevExtreme().LookupFor(m=>m.Categoria._id).DataSource(ds=>ds.WebApi().Controller("CategoriaApi").LoadAction("Get"))
+            @(Html.DevExtreme().LookupFor(m=>m._idCategoria).DataSource(ds=>ds.WebApi().Controller("CategoriaApi").LoadAction("Get"))
                         .SearchEnabled(false)
                         .Placeholder("Categoria")
                         .ValueExpr("_id")
@@ -56,16 +56,16 @@
 
         <div class="col-sm form-group">
             Conta:
-            @(Html.DevExtreme().Lookup().DataSource(ds=>ds.WebApi().Controller("ContaApi").LoadAction("Get"))
+            @(Html.DevExtreme().LookupFor(m=>m._idConta).DataSource(ds=>ds.WebApi().Controller("ContaApi").LoadAction("Get"))
                         .SearchEnabled(false)
                         .Placeholder("Conta de Recebimento")
-                        .ValueExpr("IdConta")
+                        .ValueExpr("_id")
                         .DisplayExpr("Nome")
                         )
         </div>
     </div>
 
-
+    <button class="btn btn-primary" type="submit">Salvar</button>
 
 
 }
