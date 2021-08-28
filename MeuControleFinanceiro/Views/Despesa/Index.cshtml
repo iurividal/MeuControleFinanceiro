@@ -1,32 +1,19 @@
 ﻿
 @{
-    ViewBag.Title = "Receita";
+    ViewBag.Title = "Index";
 }
 
-<h2>Minhas Receita</h2>
-
-<style>
-
-    .row {
-        margin-left: 2px
-    }
-</style>
-
-
-
-<div class="row justify-content-center">
-
+<h2>Minhas Despesas</h2>
+<div>
     @(Html.DevExtreme().List()
-
     .DataSource(ds=> ds.Mvc()
-    .Controller("Lancamento")
-    .LoadAction("Get")    
-    .DeleteMethod("Delete")
-    .Key("_id")
-    .LoadParams(new {@tipolancto = "RECEITA"})
+    .Controller("Despesa")
+    .LoadAction("GetDespesa")
+
     )
-    .ItemDeleteMode(ListItemDeleteMode.Toggle)
-    .AllowItemDeleting(true)   
+    .SelectionMode(ListSelectionMode.None)
+    .ShowScrollbar(ShowScrollbarMode.Always)
+    .ShowSelectionControls(false)
     .ItemTemplate(@<text>
 
     <div style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
@@ -53,9 +40,9 @@
          <b><%- formatCurrency(Valor) %></b>
         </div>
 
-          @*<div class="col-sm-1 text-lg-right">
+          <div class="col-sm-1 text-lg-right">
                <a href="#"> <i class="text-danger fas fa-trash"></i></a>
-            </div>*@
+            </div>
     </div>
 
  </div>
@@ -63,16 +50,9 @@
     .DataSourceOptions(d =>
     {
         d.Sort("MesLancamento",false);
-
     })
-
     .Grouped(false)
     )
-
-
-     
-
-
     @(Html.DevExtreme().SpeedDialAction()
     .ID("action-edit")
     .Icon("add")
@@ -81,7 +61,6 @@
     .Index(1)
     .OnClick("Add")
    )
-
 </div>
 
 
@@ -91,26 +70,13 @@
         return data.previousValue.toLocaleDateString();
     };
 
-
     function Add() {
 
-    var url = '@Url.Action("AddLancamento","Lancamento",new {@tipoLancamento="RECEITA", @returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })';
+        var url = '@Url.Action("AddLancamento","Lancamento",new {@tipoLancamento="DESPESA", @returnUrl = ViewContext.HttpContext.Request.Url.PathAndQuery })';
 
        url = url.replace("amp;","");
 
         window.location.href = url;
     };
-
-
-    //function showInfo() {
-    //    const popup = $("#popup").dxPopup("instance");
-
-    //    popup.option({
-    //        contentTemplate: $("#popup-template"),
-    //    });
-    //    popup.show();
-    //}
-
-
 
 </script>

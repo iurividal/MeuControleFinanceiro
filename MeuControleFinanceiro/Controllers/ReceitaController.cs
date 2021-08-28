@@ -1,4 +1,7 @@
-﻿using MeuControleFinanceiro.Models;
+﻿using DevExtreme.AspNet.Data;
+using DevExtreme.AspNet.Mvc;
+using MeuControleFinanceiro.Models;
+using MeuControleFinanceiro.Repository;
 using MeuControleFinanceiro.Repository.Servicos;
 using System;
 using System.Collections.Generic;
@@ -10,10 +13,10 @@ namespace MeuControleFinanceiro.Controllers
 {
     public class ReceitaController : Controller
     {
-        IReceitaRepository repository;
+        ILancamentoRepository repository;
 
 
-        public ReceitaController(IReceitaRepository repository)
+        public ReceitaController(ILancamentoRepository repository)
         {
             this.repository = repository;
         }
@@ -21,26 +24,36 @@ namespace MeuControleFinanceiro.Controllers
         // GET: Receita
         public ActionResult Index()
         {
-            return View();
+            return View("MinhaReceita");
         }
 
         public ActionResult MinhaReceita()
         {
-            return View();
-        }
-
-        public ActionResult AddReceita()
-        {
-            return View(new Models.ReceitaModel());
+            var lancamentos = repository.GetReceita();
+            return View(lancamentos);
         }
 
         [HttpPost]
         public ActionResult AddReceita(ReceitaModel model)
         {
+            model.TipoLancamento = "RECEITA";
 
-            repository.AddReceita(model);
+            repository.Insert(model);
 
             return View(new Models.ReceitaModel());
+        }
+
+
+        public ActionResult GetReceita(DataSourceLoadOptions loadOptions)
+        {
+            var result = DataSourceLoader.Load(repository.GetReceita(), loadOptions);
+
+            var resultJson = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+
+            //return Json(resultJson);
+
+            return Content(resultJson, "application/json");
+
         }
     }
 }

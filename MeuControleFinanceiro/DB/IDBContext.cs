@@ -17,6 +17,8 @@ namespace MeuControleFinanceiro.DB
 
         IMongoCollection<TDocument> GetCollection<TDocument>(string collection);
 
+        IEnumerable<T> GetCollections<T>(string collection);
 
+        int GetNextSequence(string collection);
     }
 }

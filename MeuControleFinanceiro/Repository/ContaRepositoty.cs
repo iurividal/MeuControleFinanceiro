@@ -48,10 +48,10 @@ namespace MeuControleFinanceiro.Repository
         {
             var contas = db.GetCollection<ContaModel>("Conta");
 
-            var receitas = db.GetCollection<ReceitaModel>("Receita");
+            var lancamento = db.GetCollection<LancamentoModel>("Lancamento");
 
-            var despesas = db.GetCollection<DespesaModel>("Despesa");
-
+            //var despesas = db.GetCollection<DespesaModel>("Despesa");
+            
             //var result = contas.Aggregate().Lookup("Receita", "Valor", "_idConta", @as: "receita_docs")
             //    .Unwind("receita_docs")
             //    .As<ContaDetalhe>()
@@ -77,16 +77,18 @@ namespace MeuControleFinanceiro.Repository
 
             foreach (var item in result)
             {
-                item.Receitas = receitas.Find(x => x._idConta == item._id).ToList();
+                int idcota = Convert.ToInt32(item._id);
 
-                item.Despesas = despesas.Find(x => x._idConta == item._id).ToList();
+                item.TotalReceita = lancamento.AsQueryable().Where(a => a._idConta == idcota && a.TipoLancamento == "RECEITA").Sum(a => a.Valor);
 
-                item.TotalReceita = item.Receitas.Sum(x => x.Valor);
+                item.TotalDespesa = lancamento.AsQueryable().Where(a => a._idConta == idcota && a.TipoLancamento == "DESPESA").Sum(a => a.Valor);
 
-                item.TotalDespesa = item.ValorInicial + item.Despesas.Sum(x => x.Valor);
+                item.SaldoAtual = item.ValorInicial + (item.TotalReceita - item.TotalDespesa);  
+                
 
-                item.SaldoAtual = item.ValorInicial + (item.TotalReceita - item.TotalDespesa);                
             }
+
+
 
 
 
@@ -102,14 +104,14 @@ namespace MeuControleFinanceiro.Repository
         {
             var receitas = db.GetDataBaseMongo().GetCollection<ReceitaModel>("Receita")
                     .AsQueryable<ReceitaModel>()
-                    .Where(a => a._idConta == id).Sum(a => a.Valor);
+                    .Where(a => a._idConta == Convert.ToInt32(id)).Sum(a => a.Valor);
 
             var despensas = db.GetDataBaseMongo().GetCollection<DespesaModel>("Despesa")
                         .AsQueryable<DespesaModel>()
-                        .Where(a => a._idConta == id).Sum(a => a.Valor);
+                        .Where(a => a._idConta == Convert.ToInt32(id)).Sum(a => a.Valor);
 
 
-            var saldoInicial = GetContas().Where(a => a._id == id).Sum(a => a.ValorInicial);
+            var saldoInicial = GetContas().Where(a => Convert.ToInt32(a._id) == Convert.ToInt32(id)).Sum(a => a.ValorInicial);
 
             var saldoAtual = (receitas - despensas) + saldoInicial;
 

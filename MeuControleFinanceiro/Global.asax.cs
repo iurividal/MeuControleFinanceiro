@@ -38,7 +38,10 @@ namespace MeuControleFinanceiro
             container.Register<IDBContext, DBContext>(Lifestyle.Scoped);
             container.Register<ICategoriaRepository, CategoriaRepository>(Lifestyle.Scoped);
             container.Register<IReceitaRepository, ReceitaRepository>(Lifestyle.Scoped);
+            container.Register<IDespesaRepository, DespesaRepository>(Lifestyle.Scoped);
             container.Register<IContaRepository, ContaRepository>(Lifestyle.Scoped);
+            container.Register<ICartaoCreditoRepository, CartaoCreditoRepository>(Lifestyle.Scoped);
+            container.Register<ILancamentoRepository, LancamentoRepository>(Lifestyle.Scoped);
 
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
 

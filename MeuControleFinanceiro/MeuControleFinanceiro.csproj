@@ -67,6 +67,9 @@
     <Reference Include="MongoDB.Driver.Core, Version=2.13.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Driver.Core.2.13.1\lib\net452\MongoDB.Driver.Core.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Driver.Legacy, Version=2.13.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\mongocsharpdriver.2.13.1\lib\net452\MongoDB.Driver.Legacy.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Libmongocrypt, Version=1.2.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MongoDB.Libmongocrypt.1.2.2\lib\net452\MongoDB.Libmongocrypt.dll</HintPath>
     </Reference>
@@ -322,6 +325,9 @@
     <Content Include="Views\Receita\AddReceita.cshtml" />
     <Content Include="Views\Categoria\AddOrUpdate.cshtml" />
     <Content Include="Views\Conta\AddConta.cshtml" />
+    <Content Include="Views\Despesa\Index.cshtml" />
+    <Content Include="Views\Despesa\AddDespesa.cshtml" />
+    <Content Include="Views\Shared\AddLancamento.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -400,10 +406,14 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\Api\CategoriaApiController.cs" />
     <Compile Include="Controllers\Api\ContaApiController.cs" />
+    <Compile Include="Controllers\Api\DespesaApiController.cs" />
     <Compile Include="Controllers\Api\ReceitaApiController.cs" />
+    <Compile Include="Controllers\CartaoCreditoController.cs" />
     <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\ContaController.cs" />
+    <Compile Include="Controllers\DespesaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LancamentoController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\ReceitaController.cs" />
     <Compile Include="DB\DBContext.cs" />
@@ -411,23 +421,35 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="HelpersExtensions.cs" />
+    <Compile Include="HelpersFolder\HelpersExtensions.cs" />
+    <Compile Include="HelpersFolder\TipoLancamentoEnum.cs" />
+    <Compile Include="Models\CartaoCreditoModel.cs" />
     <Compile Include="Models\CategoriaModel.cs" />
     <Compile Include="Models\ContaDetalhe.cs" />
     <Compile Include="Models\ContaModel.cs" />
     <Compile Include="Models\DespesaModel.cs" />
+    <Compile Include="Models\LancamentoModel.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\ReceitaModel.cs" />
     <Compile Include="Models\SampleData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\CartaoCreditoRepository.cs" />
     <Compile Include="Repository\CategoriaRepository.cs" />
     <Compile Include="Repository\ContaRepositoty.cs" />
+    <Compile Include="Repository\DespesaRepository.cs" />
+    <Compile Include="Repository\Servicos\ILancamentoRepository.cs" />
+    <Compile Include="Repository\LancamentoRepository.cs" />
+    <Compile Include="Repository\Servicos\ICartaoCreditoRepository.cs" />
     <Compile Include="Repository\Servicos\ICategoriaRepository.cs" />
     <Compile Include="Repository\ReceitaRepository.cs" />
     <Compile Include="Repository\Servicos\IContaRepository.cs" />
+    <Compile Include="Repository\Servicos\IDespesaRepository.cs" />
     <Compile Include="Repository\Servicos\IReceitaRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\CartaoCredito\" />
+    <Folder Include="Views\Lancamento\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

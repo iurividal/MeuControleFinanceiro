@@ -23,7 +23,7 @@ namespace MeuControleFinanceiro.Controllers
         {
             var contas = repository.GetContaDetalhe().ToList();
 
-            ViewBag.SaldoTotal = Convert.ToDecimal(contas.Sum(a => a.ValorInicial) + contas.Sum(a => a.Receitas.Sum(b => b.Valor)) - contas.Sum(a => a.Despesas.Sum(b => b.Valor))).ToString("c2");
+            ViewBag.SaldoTotal = (contas.Sum(a => a.ValorInicial) + (contas.Sum(a => a.TotalReceita) - contas.Sum(a => a.TotalDespesa))).GetValueOrDefault().ToString("c2");
 
             return View(contas);
         }

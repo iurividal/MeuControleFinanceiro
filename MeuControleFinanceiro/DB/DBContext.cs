@@ -1,10 +1,7 @@
-﻿using MeuControleFinanceiro.Models;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace MeuControleFinanceiro.DB
 {
@@ -33,5 +30,16 @@ namespace MeuControleFinanceiro.DB
             return GetDataBaseMongo().GetCollection<TDocument>(collection);
         }
 
+        public IEnumerable<T> GetCollections<T>(string collection)
+        {
+            return GetDataBaseMongo().GetCollection<T>(collection).AsQueryable();
+        }
+
+        public int GetNextSequence(string collection)
+        {
+            var item = GetDataBaseMongo().GetCollection<BsonDocument>(collection).ToBson().Count() +1;
+
+            return item;
+        }
     }
 }

@@ -1,13 +1,38 @@
-﻿@model MeuControleFinanceiro.Models.ReceitaModel
+﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+@model MeuControleFinanceiro.Models.LancamentoModel
+
 @using (Html.BeginForm())
 {
+
+    @Html.HiddenFor(m => m.TipoLancamento);
+
     <div class="row">
         <div class="col-sm">
-            <h3>Nova Receita</h3>
+
+            @if (Model.TipoLancamento == "DESPESA")
+            {
+                <h3>Nova Despesa</h3>
+            }
+
+
+            @if (Model.TipoLancamento == "RECEITA")
+            {
+                <h3>Nova Receita</h3>
+            }
+
+
+            @if (Model.TipoLancamento == "CARTAOCREDITO")
+            {
+                <h3>Novo Lancamento Cartão de Crédito</h3>
+            }
+
+
+
         </div>
     </div>
 
@@ -20,7 +45,7 @@
     <div class="row">
         <div class="col-sm form-group">
             Recorrência:
-            @(Html.DevExtreme().Lookup()
+            @(Html.DevExtreme().LookupFor(m=>m.Recorrencia)
                         .SearchEnabled(false)
                         .DataSource(new[] {"Nenhuma","Parcelada","Fixa Mensal" })
                         .Placeholder("Recorrência")
@@ -37,7 +62,7 @@
 
 
         <div class="col-sm form-group">
-            Data Recebimento
+            Vencimento:
             @(Html.DevExtreme().DateBoxFor(m=>m.DataLancamento).DisplayFormat("dd/MM/yyyy")
             .Placeholder("Data")
                         )
@@ -70,3 +95,6 @@
 
 
 }
+
+
+
